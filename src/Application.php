@@ -23,6 +23,8 @@ class Application
 
     protected $key;
 
+    protected $secret_key;
+
     /**
      * 默认配置
      * @var array
@@ -41,12 +43,16 @@ class Application
      * @param array $config guzzleHttp Client客户端配置,传空使用默认配置
      * @throws FailException
      */
-    public function __construct(?string $key=null,array $config=[])
+    public function __construct(?string $key=null, ?string $secret_key=null, array $config=[])
     {
         if (empty($key)){
             throw new FailException('Configuration item key required');
         }
+        if (empty($secret_key)){
+            throw new FailException('Configuration item secret_key required');
+        }
         $this->key = $key;
+        $this->secret_key = $secret_key;
         $config = array_merge($this->default_config,$config);
         $this->client = new Client($config);
     }
@@ -66,7 +72,7 @@ class Application
     public function api()
     {
         return new Server(
-            (new Request($this->key,$this->client))
+            (new Request($this->key, $this->secret_key, $this->client))
         );
     }
 }

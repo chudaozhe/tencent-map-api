@@ -17,15 +17,21 @@ final class Request
     protected $key;
 
     /**
+     * @var string
+     */
+    protected $secret_key;
+
+    /**
      * @var Client
      */
     protected $client;
 
     protected $response;
 
-    public function __construct($key,Client $client)
+    public function __construct($key, $secret_key, Client $client)
     {
         $this->key = $key;
+        $this->secret_key = $secret_key;
         $this->client = $client;
     }
 
@@ -37,9 +43,7 @@ final class Request
     {
         return $this->beforeResponse(
             $this->client->request('get',$url,[
-                'query'=>array_merge($data,[
-                    'key'=>$this->key
-                ])
+                'query'=>$this->signData($url, $data),
             ])
         );
     }
@@ -65,5 +69,22 @@ final class Request
     private function response(): Response
     {
         return $this->response;
+    }
+
+    /**
+     * 数据签名
+     * @param string $url
+     * @param array $data
+     * @return array
+     */
+    private function signData(string $url, array $data): array
+    {
+        $data=array_merge($data,[
+            'key'=>$this->key
+        ]);
+        ksort($data);
+        $str='/ws/'.$url.'?'.urldecode(http_build_query($data)).$this->secret_key;
+        $data['sig']=md5($str);
+        return $data;
     }
 }

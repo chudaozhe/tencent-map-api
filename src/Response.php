@@ -2,9 +2,6 @@
 
 namespace DeathSatan\TencentMapApi;
 
-use JetBrains\PhpStorm\Internal\LanguageLevelTypeAware;
-use JetBrains\PhpStorm\Internal\TentativeType;
-
 /**
  * 响应类
  */
@@ -40,22 +37,22 @@ class Response implements \ArrayAccess
         return $this->data['result'];
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset):bool
     {
         return empty($this->data[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset):mixed
     {
         return $this->data[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value):void
     {
         $this->data[$offset]=$value;
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset):void
     {
         unset($this->data[$offset]);
     }

@@ -3,7 +3,7 @@
 
 ---
 ```shell
-composer require death_satan/tencent-map-api -vvv
+composer require chudaozhe/tencent-map-api -vvv
 ```
 ---
 
@@ -12,7 +12,8 @@ composer require death_satan/tencent-map-api -vvv
 ---
 ```php
 $key = '';//腾讯地图key
-$app = new \DeathSatan\TencentMapApi\Application($key);
+$secret_key = '';//SecretKey (SK)：在腾讯位置服务控制台 > Key配置中，勾选WebServiceAPI的 SN校验时自动生成的随机字串，用于计算签名（sig）
+$app = new \DeathSatan\TencentMapApi\Application($key, $secret_key);
 
 //地址转经纬度
 $data=$app->api()->addressResolution('北京市');
