@@ -1,5 +1,5 @@
 {
-    "name": "death_satan/tencent-map-api",
+    "name": "chudaozhe/tencent-map-api",
     "description": "腾讯地图api sdk封装 tencent map services api,based on GuzzleHttp",
     "type": "library",
     "require": {
@@ -16,6 +16,10 @@
         {
             "name": "ShuSRun",
             "email": "2771717608@qq.com"
+        },
+        {
+            "name": "chudaozhe",
+            "email": "chudaozhe@outlook.com"
         }
     ],
     "minimum-stability": "dev"
